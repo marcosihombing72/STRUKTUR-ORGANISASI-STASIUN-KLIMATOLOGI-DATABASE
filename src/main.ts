@@ -1,16 +1,10 @@
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { json, urlencoded } from 'express';
-import { Server } from 'http';
 import { AppModule } from './app.module';
-
-let server: Server;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
-  app.use(json({ limit: '10mb' }));
-  app.use(urlencoded({ extended: true, limit: '10mb' }));
 
   app.enableCors({
     origin: true,
@@ -18,25 +12,33 @@ async function bootstrap() {
     credentials: true,
   });
 
+  app.setGlobalPrefix('api');
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    }),
+  );
+
   const config = new DocumentBuilder()
-    .setTitle('API Dokumentasi')
-    .setDescription('Dokumentasi endpoint API untuk aplikasi kamu')
+    .setTitle('Admin API')
+    .setDescription('Dokumentasi API untuk manajemen admin')
     .setVersion('1.0')
-    .addTag('auth')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+      },
+      'access-token',
+    )
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  await app.init(); // ⬅️ tidak pakai listen
-  return app.getHttpAdapter().getInstance();
+  await app.listen(process.env.PORT || 3000);
 }
-
-// Handler untuk Vercel
-export default async function handler(req, res) {
-  if (!server) {
-    const instance = await bootstrap();
-    server = instance;
-  }
-  server.emit('request', req, res);
-}
+bootstrap();
