@@ -7,7 +7,9 @@
     }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "dist/main.js" }
-  ],
-  "buildCommand": "npm install && npm run build"
+    {
+      "src": "/(.*)",
+      "dest": "dist/main.js"
+    }
+  ]
 }
