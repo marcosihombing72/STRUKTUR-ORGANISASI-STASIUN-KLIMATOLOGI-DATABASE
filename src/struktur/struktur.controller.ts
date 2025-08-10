@@ -1,17 +1,17 @@
 import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Param,
-  Delete,
-  Put,
-  Headers,
+    Body,
+    Controller,
+    Delete,
+    Get,
+    Headers,
+    Param,
+    Post,
+    Put,
 } from '@nestjs/common';
-import { StrukturService } from './struktur.service';
+import { ApiHeader, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 import { CreateStrukturDto } from './dto/create-struktur.dto';
 import { UpdateStrukturDto } from './dto/update-struktur.dto';
-import { ApiTags, ApiOperation, ApiParam, ApiHeader } from '@nestjs/swagger';
+import { StrukturService } from './struktur.service';
 
 @ApiTags('struktur-organisasi')
 @Controller('struktur-organisasi')

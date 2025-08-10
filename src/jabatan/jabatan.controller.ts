@@ -1,20 +1,20 @@
 // src/jabatan/jabatan.controller.ts
 import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Param,
-  Delete,
-  Put,
-  Headers,
   BadRequestException,
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Headers,
+  Param,
+  Post,
+  Put,
 } from '@nestjs/common';
-import { JabatanService } from './jabatan.service';
-import { CreateJabatanDto } from './dto/create-jabatan.dto';
-import { UpdateJabatanDto } from './dto/update-jabatan.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { supabase } from '../supabase/supabase.client';
+import { CreateJabatanDto } from './dto/create-jabatan.dto';
+import { UpdateJabatanDto } from './dto/update-jabatan.dto';
+import { JabatanService } from './jabatan.service';
 
 @ApiTags('jabatan')
 @Controller('jabatan')

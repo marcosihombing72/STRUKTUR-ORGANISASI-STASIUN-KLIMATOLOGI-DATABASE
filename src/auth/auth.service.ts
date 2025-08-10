@@ -1,8 +1,8 @@
 // src/auth/auth.service.ts
-import { Injectable, UnauthorizedException, BadRequestException } from '@nestjs/common';
-import { RegisterDto } from './dto/register.dto';
-import { LoginDto } from './dto/login.dto';
+import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { supabase } from '../supabase/supabase.client';
+import { LoginDto } from './dto/login.dto';
+import { RegisterDto } from './dto/register.dto';
 
 @Injectable()
 export class AuthService {

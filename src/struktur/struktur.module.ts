@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { StrukturService } from './struktur.service';
 import { StrukturController } from './struktur.controller';
-
+import { StrukturService } from './struktur.service';
+ 
 @Module({
   controllers: [StrukturController],
   providers: [StrukturService],

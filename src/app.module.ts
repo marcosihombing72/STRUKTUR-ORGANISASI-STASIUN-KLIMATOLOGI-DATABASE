@@ -1,17 +1,17 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-
+ 
+import { AktivitasController } from './aktivitas/aktivitas.controller';
+import { AktivitasModule } from './aktivitas/aktivitas.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { JabatanController } from './jabatan/jabatan.controller';
-import { JabatanService } from './jabatan/jabatan.service';
 import { JabatanModule } from './jabatan/jabatan.module';
-import { PetugasService } from './petugas/petugas.service';
+import { JabatanService } from './jabatan/jabatan.service';
 import { PetugasModule } from './petugas/petugas.module';
+import { PetugasService } from './petugas/petugas.service';
 import { StrukturModule } from './struktur/struktur.module';
-import { AktivitasController } from './aktivitas/aktivitas.controller';
-import { AktivitasModule } from './aktivitas/aktivitas.module';
 
 @Module({
   imports: [

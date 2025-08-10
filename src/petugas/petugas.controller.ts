@@ -1,16 +1,16 @@
 // src/petugas/petugas.controller.ts
 import {
-  Controller,
-  Post,
-  Get,
   Body,
-  Param,
-  Put,
+  Controller,
   Delete,
+  Get,
+  Param,
+  Post,
+  Put,
 } from '@nestjs/common';
-import { PetugasService } from './petugas.service';
 import { CreatePetugasDto } from './dto/create-petugas.dto';
 import { UpdatePetugasDto } from './dto/update-petugas.dto';
+import { PetugasService } from './petugas.service';
 
 @Controller('petugas')
 export class PetugasController {

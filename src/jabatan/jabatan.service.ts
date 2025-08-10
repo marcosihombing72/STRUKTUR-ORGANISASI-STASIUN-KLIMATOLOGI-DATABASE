@@ -1,11 +1,11 @@
 // src/jabatan/jabatan.service.ts
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { supabase } from '../supabase/supabase.client';
+import { logAktivitas } from '../utils/logAktivitas';
 import { CreateJabatanDto } from './dto/create-jabatan.dto';
 import { UpdateJabatanDto } from './dto/update-jabatan.dto';
-import { logAktivitas } from '../utils/logAktivitas';
 
-@Injectable()
+@Injectable() 
 export class JabatanService {
   async findAll() {
     const { data, error } = await supabase.from('Jabatan').select('*');

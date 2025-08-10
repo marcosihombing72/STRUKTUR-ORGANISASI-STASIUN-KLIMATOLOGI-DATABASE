@@ -6,9 +6,8 @@ import { AppModule } from './app.module';
 
 let server: Express;
 
-async function bootstrap() {
+async function bootstrap(): Promise<Express> {
   const app = await NestFactory.create(AppModule);
-
   app.use(json({ limit: '10mb' }));
   app.use(urlencoded({ extended: true, limit: '10mb' }));
 
@@ -20,11 +19,9 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('API Dokumentasi')
-    .setDescription('Dokumentasi endpoint API untuk aplikasi kamu')
+    .setDescription('Dokumentasi endpoint API')
     .setVersion('1.0')
-    .addTag('auth')
     .build();
-
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
@@ -32,10 +29,14 @@ async function bootstrap() {
   return app.getHttpAdapter().getInstance();
 }
 
-// Handler untuk Vercel
 export default async function handler(req, res) {
-  if (!server) {
-    server = await bootstrap();
+  try {
+    if (!server) {
+      server = await bootstrap();
+    }
+    return server(req, res);
+  } catch (err) {
+    console.error('Serverless error:', err);
+    res.status(500).send('Internal Server Error');
   }
-  return server(req, res);
 }

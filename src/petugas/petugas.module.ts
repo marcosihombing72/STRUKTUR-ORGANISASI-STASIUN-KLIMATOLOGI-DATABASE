@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { PetugasService } from './petugas.service';
 import { PetugasController } from './petugas.controller';
+import { PetugasService } from './petugas.service';
 
-@Module({
+@Module({ 
   controllers: [PetugasController],
   providers: [PetugasService],
 })

@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { JabatanService } from './jabatan.service';
 import { JabatanController } from './jabatan.controller';
+import { JabatanService } from './jabatan.service';
 
-@Module({
+@Module({ 
   controllers: [JabatanController],
   providers: [JabatanService],
 })

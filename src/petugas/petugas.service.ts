@@ -1,9 +1,9 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { supabase } from '../supabase/supabase.client';
+import { logAktivitas } from '../utils/logAktivitas';
 import { CreatePetugasDto } from './dto/create-petugas.dto';
 import { UpdatePetugasDto } from './dto/update-petugas.dto';
-import { logAktivitas } from '../utils/logAktivitas';
-
+ 
 @Injectable()
 export class PetugasService {
   async create(createPetugasDto: CreatePetugasDto) {
