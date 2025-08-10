@@ -1,15 +1,13 @@
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { json, urlencoded } from 'express'; // ⬅️ tambahkan ini
+import { json, urlencoded } from 'express';
+import { Server } from 'http';
 import { AppModule } from './app.module';
 
-async function bootstrap(req?: any, res?: any) {
+let server: Server;
+
+async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors();
-  await app.init();
-  if (req && res) {
-    app.getHttpAdapter().getInstance()(req, res);
-  }
 
   app.use(json({ limit: '10mb' }));
   app.use(urlencoded({ extended: true, limit: '10mb' }));
@@ -19,6 +17,7 @@ async function bootstrap(req?: any, res?: any) {
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
+
   const config = new DocumentBuilder()
     .setTitle('API Dokumentasi')
     .setDescription('Dokumentasi endpoint API untuk aplikasi kamu')
@@ -27,9 +26,17 @@ async function bootstrap(req?: any, res?: any) {
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-
   SwaggerModule.setup('api', app, document);
 
-  await app.listen(3000);
+  await app.init(); // ⬅️ tidak pakai listen
+  return app.getHttpAdapter().getInstance();
 }
-bootstrap();
+
+// Handler untuk Vercel
+export default async function handler(req, res) {
+  if (!server) {
+    const instance = await bootstrap();
+    server = instance;
+  }
+  server.emit('request', req, res);
+}
