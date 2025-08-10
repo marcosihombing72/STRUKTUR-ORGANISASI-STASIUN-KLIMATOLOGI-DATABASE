@@ -3,8 +3,13 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { json, urlencoded } from 'express'; // ⬅️ tambahkan ini
 import { AppModule } from './app.module';
 
-async function bootstrap() {
+async function bootstrap(req?: any, res?: any) {
   const app = await NestFactory.create(AppModule);
+  app.enableCors();
+  await app.init();
+  if (req && res) {
+    app.getHttpAdapter().getInstance()(req, res);
+  }
 
   app.use(json({ limit: '10mb' }));
   app.use(urlencoded({ extended: true, limit: '10mb' }));
