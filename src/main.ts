@@ -1,10 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import type { Express } from 'express';
-import { json, urlencoded } from 'express';
+import { json, urlencoded } from 'express'; // ⬅️ tambahkan ini
 import { AppModule } from './app.module';
-
-let server: Express;
 
 async function bootstrap(): Promise<Express> {
   const app = await NestFactory.create(AppModule);
@@ -23,20 +20,16 @@ async function bootstrap(): Promise<Express> {
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);
+
   SwaggerModule.setup('api', app, document);
 
-  await app.init();
-  return app.getHttpAdapter().getInstance();
+  await app.listen(3000);
 }
 
+// Handler untuk Vercel
 export default async function handler(req, res) {
-  try {
-    if (!server) {
-      server = await bootstrap();
-    }
-    return server(req, res);
-  } catch (err) {
-    console.error('Serverless error:', err);
-    res.status(500).send('Internal Server Error');
+  if (!server) {
+    server = await bootstrap();
   }
+  return server(req, res);
 }
