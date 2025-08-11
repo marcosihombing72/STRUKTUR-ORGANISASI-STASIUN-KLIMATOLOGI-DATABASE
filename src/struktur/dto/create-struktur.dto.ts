@@ -1,5 +1,5 @@
-import { IsNotEmpty, IsString, IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CreateStrukturDto {
   @ApiProperty({
@@ -9,7 +9,7 @@ export class CreateStrukturDto {
   })
   @IsOptional()
   @IsString()
-  ID_Struktur?: string; 
+  ID_Struktur?: string;
 
   @ApiProperty({
     example: '1987654321',
@@ -31,8 +31,7 @@ export class CreateStrukturDto {
     example: '2024-01-01',
     description: 'Tanggal mulai tugas (TMT)',
   })
-  
   @IsNotEmpty()
-  @IsString() 
+  @IsString()
   tmt: string;
 }
