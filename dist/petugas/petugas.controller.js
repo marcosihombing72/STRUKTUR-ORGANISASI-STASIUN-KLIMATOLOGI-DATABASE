@@ -14,9 +14,9 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PetugasController = void 0;
 const common_1 = require("@nestjs/common");
-const petugas_service_1 = require("./petugas.service");
 const create_petugas_dto_1 = require("./dto/create-petugas.dto");
 const update_petugas_dto_1 = require("./dto/update-petugas.dto");
+const petugas_service_1 = require("./petugas.service");
 let PetugasController = class PetugasController {
     petugasService;
     constructor(petugasService) {

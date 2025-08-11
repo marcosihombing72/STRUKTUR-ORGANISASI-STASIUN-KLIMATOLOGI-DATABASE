@@ -14,10 +14,10 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StrukturController = void 0;
 const common_1 = require("@nestjs/common");
-const struktur_service_1 = require("./struktur.service");
+const swagger_1 = require("@nestjs/swagger");
 const create_struktur_dto_1 = require("./dto/create-struktur.dto");
 const update_struktur_dto_1 = require("./dto/update-struktur.dto");
-const swagger_1 = require("@nestjs/swagger");
+const struktur_service_1 = require("./struktur.service");
 let StrukturController = class StrukturController {
     strukturService;
     constructor(strukturService) {

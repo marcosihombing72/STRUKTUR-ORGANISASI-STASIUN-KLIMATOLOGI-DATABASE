@@ -1,6 +1,6 @@
-import { StrukturService } from './struktur.service';
 import { CreateStrukturDto } from './dto/create-struktur.dto';
 import { UpdateStrukturDto } from './dto/update-struktur.dto';
+import { StrukturService } from './struktur.service';
 export declare class StrukturController {
     private readonly strukturService;
     constructor(strukturService: StrukturService);

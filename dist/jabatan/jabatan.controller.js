@@ -14,11 +14,11 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.JabatanController = void 0;
 const common_1 = require("@nestjs/common");
-const jabatan_service_1 = require("./jabatan.service");
-const create_jabatan_dto_1 = require("./dto/create-jabatan.dto");
-const update_jabatan_dto_1 = require("./dto/update-jabatan.dto");
 const swagger_1 = require("@nestjs/swagger");
 const supabase_client_1 = require("../supabase/supabase.client");
+const create_jabatan_dto_1 = require("./dto/create-jabatan.dto");
+const update_jabatan_dto_1 = require("./dto/update-jabatan.dto");
+const jabatan_service_1 = require("./jabatan.service");
 let JabatanController = class JabatanController {
     jabatanService;
     constructor(jabatanService) {

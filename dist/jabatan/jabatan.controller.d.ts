@@ -1,6 +1,6 @@
-import { JabatanService } from './jabatan.service';
 import { CreateJabatanDto } from './dto/create-jabatan.dto';
 import { UpdateJabatanDto } from './dto/update-jabatan.dto';
+import { JabatanService } from './jabatan.service';
 export declare class JabatanController {
     private readonly jabatanService;
     constructor(jabatanService: JabatanService);

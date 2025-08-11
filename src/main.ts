@@ -1,15 +1,10 @@
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import type { Express as ExpressApp } from 'express';
-import { json, urlencoded } from 'express';
 import { AppModule } from './app.module';
 
-let server: ExpressApp;
-
-async function bootstrap(): Promise<ExpressApp> {
+async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.use(json({ limit: '10mb' }));
-  app.use(urlencoded({ extended: true, limit: '10mb' }));
 
   app.enableCors({
     origin: true,
@@ -17,22 +12,33 @@ async function bootstrap(): Promise<ExpressApp> {
     credentials: true,
   });
 
+  app.setGlobalPrefix('api');
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    }),
+  );
+
   const config = new DocumentBuilder()
-    .setTitle('API Dokumentasi')
-    .setDescription('Dokumentasi endpoint API')
+    .setTitle('API')
+    .setDescription('Dokumentasi API')
     .setVersion('1.0')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+      },
+      'access-token',
+    )
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  await app.init();
-  return app.getHttpAdapter().getInstance();
+  await app.listen(process.env.PORT || 3000);
 }
-
-export default async function handler(req, res) {
-  if (!server) {
-    server = await bootstrap();
-  }
-  return server(req, res);
-}
+bootstrap();

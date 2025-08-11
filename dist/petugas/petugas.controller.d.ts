@@ -1,6 +1,6 @@
-import { PetugasService } from './petugas.service';
 import { CreatePetugasDto } from './dto/create-petugas.dto';
 import { UpdatePetugasDto } from './dto/update-petugas.dto';
+import { PetugasService } from './petugas.service';
 export declare class PetugasController {
     private readonly petugasService;
     constructor(petugasService: PetugasService);
